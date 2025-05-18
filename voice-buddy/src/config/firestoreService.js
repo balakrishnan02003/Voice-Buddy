@@ -8,8 +8,7 @@ import {
   getDocs, 
   query, 
   where, 
-  orderBy,
-  writeBatch
+  orderBy 
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -20,7 +19,7 @@ export async function saveUserConversations(userId, conversations) {
   try {
     if (!userId) {
       console.warn("No user ID provided. Skipping conversation save.");
-      return false;
+      return;
     }
 
     // Ensure all conversation IDs are strings for consistency
@@ -31,45 +30,13 @@ export async function saveUserConversations(userId, conversations) {
 
     const userDocRef = doc(db, "users", userId);
     
-    // Check document size before saving
-    const conversationsSize = JSON.stringify(normalizedConversations).length;
+    // Use set with merge to ensure we don't overwrite other user data
+    await setDoc(userDocRef, { 
+      conversations: normalizedConversations,
+      lastUpdated: new Date().toISOString()
+    }, { merge: true });
     
-    // If document is too large (> 1MB), split into smaller chunks
-    if (conversationsSize > 900000) { // Leave some margin below Firestore's 1MB limit
-      console.log("Large conversation data detected, splitting into batches...");
-      
-      // Use a batch to ensure atomicity
-      const batch = writeBatch(db);
-      
-      // Clear existing conversations first
-      batch.set(userDocRef, { 
-        conversationsCount: normalizedConversations.length,
-        lastUpdated: new Date().toISOString()
-      }, { merge: true });
-      
-      // Store conversations in chunks of max 10 conversations per document
-      const chunkSize = 10;
-      for (let i = 0; i < normalizedConversations.length; i += chunkSize) {
-        const chunk = normalizedConversations.slice(i, i + chunkSize);
-        const chunkDocRef = doc(db, "users", userId, "conversationChunks", `chunk_${Math.floor(i/chunkSize)}`);
-        batch.set(chunkDocRef, { 
-          conversations: chunk,
-          chunkIndex: Math.floor(i/chunkSize),
-          timestamp: new Date().toISOString()
-        });
-      }
-      
-      await batch.commit();
-      console.log("✅ Large conversations saved successfully in chunks!");
-    } else {
-      // Normal case - document size is within limits
-      await setDoc(userDocRef, { 
-        conversations: normalizedConversations,
-        lastUpdated: new Date().toISOString()
-      }, { merge: true });
-      
-      console.log("✅ Conversations saved successfully!", normalizedConversations.length);
-    }
+    console.log("✅ Conversations saved successfully!", normalizedConversations.length);
     return true;
   } catch (error) {
     console.error("❌ Error saving conversations:", error);
@@ -91,38 +58,9 @@ export async function getUserConversations(userId) {
     const userDoc = await getDoc(userDocRef);
     
     if (userDoc.exists()) {
-      // Check if conversations are directly in the user document
-      if (userDoc.data().conversations) {
-        const conversations = userDoc.data().conversations || [];
-        console.log(`✅ Retrieved ${conversations.length} conversations for user ${userId}`);
-        return conversations;
-      }
-      
-      // If conversationsCount exists, data is split into chunks
-      if (userDoc.data().conversationsCount) {
-        console.log("Conversations are stored in chunks, retrieving...");
-        const chunksCollectionRef = collection(db, "users", userId, "conversationChunks");
-        const chunksSnapshot = await getDocs(chunksCollectionRef);
-        
-        let allConversations = [];
-        chunksSnapshot.forEach(doc => {
-          const chunkData = doc.data();
-          if (chunkData.conversations && Array.isArray(chunkData.conversations)) {
-            allConversations = [...allConversations, ...chunkData.conversations];
-          }
-        });
-        
-        // Sort by chunk index if needed
-        allConversations.sort((a, b) => {
-          // Sort by timestamp if available, otherwise by ID
-          const dateA = new Date(a.timestamp || 0);
-          const dateB = new Date(b.timestamp || 0);
-          return dateB - dateA; // Newest first
-        });
-        
-        console.log(`✅ Retrieved ${allConversations.length} conversations from chunks for user ${userId}`);
-        return allConversations;
-      }
+      const conversations = userDoc.data().conversations || [];
+      console.log(`✅ Retrieved ${conversations.length} conversations for user ${userId}`);
+      return conversations;
     }
     
     console.log(`No conversations found for user ${userId}`);
