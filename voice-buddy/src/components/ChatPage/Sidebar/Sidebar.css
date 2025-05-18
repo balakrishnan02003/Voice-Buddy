@@ -1,0 +1,348 @@
+/* Update the sidebar styles in Sidebar.css */
+
+.sidebar {
+  width: 250px !important;
+  min-width: 250px !important;
+  height: 100vh !important;
+  background-color: rgba(42, 0, 135, 0.7) !important; /* Match main gradient but slightly darker */
+  display: flex !important;
+  flex-direction: column !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  position: fixed !important;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Fix the main content positioning to respect the sidebar */
+.main {
+  flex: 1 !important;
+  min-height: 100vh !important;
+  width: calc(100vw - 250px) !important;
+  position: absolute !important;
+  right: 0;
+  top: 0;
+  background: linear-gradient(135deg, #2A0087, #42006c);
+  color: #fff;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-top: 60px; /* Match your header height */
+}
+
+/* When sidebar is collapsed */
+.sidebar.collapsed {
+  width: 60px !important;
+  min-width: 60px !important;
+}
+
+.main.expanded {
+  width: calc(100vw - 60px) !important;
+  left: 60px;
+}
+/* Sidebar header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Menu icon */
+.menu {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.menu:hover {
+  opacity: 1;
+}
+
+/* Top section */
+.sidebar .top {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* New chat button */
+/* .new-chat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 15px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+} */
+.new-chat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 12px;
+  margin: 0px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* When sidebar is collapsed */
+.sidebar.collapsed .new-chat {
+  width: 40px; /* Make it a small circle */
+  height: 40px;
+  border-radius: 50%;
+  padding: 0;
+  margin: 10px auto; /* Center it */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.new-chat:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.new-chat-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new-chat img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+}
+
+.new-chat p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Recent chats section */
+.recent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.recent-title {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 15px 20px 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 20px;
+}
+
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.recent-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.recent-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.recent-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+/* Recent entry container */
+.recent-entry-container {
+  position: relative;
+  width: 100%;
+}
+
+/* For the 3 dots alignment */
+/* Replace the .options-icon styles in Sidebar.css */
+
+.options-icon {
+  position: absolute;
+  right: 12px; /* Adjusted from 20px */
+  top: 50%;
+  transform: translateY(-50%); /* Changed from -100% to center vertically */
+  cursor: pointer;
+  z-index: 2;
+  width: 20px; /* Increased width slightly */
+  height: 20px; /* Increased height slightly */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  padding: 3px;
+}
+
+.options-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.7; /* Make it slightly transparent */
+}
+
+.options-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.options-icon:hover img {
+  opacity: 1;
+}
+
+
+
+
+.recent-entry {
+  margin-top:1px;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px; /* Reduce padding */
+  border-radius: 6px; /* Keep rounded but smaller */
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+  width: 100%;
+  margin-bottom: 2px; 
+}
+
+.bottom-item-icon img, .new-chat-icon img, .recent-entry-icon img {
+  width: 14px; /* Reduce from 16px */
+  height: 14px; /* Reduce from 16px */
+  opacity: 0.8;
+}
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 45%;
+  margin-top: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  overflow: hidden;
+  min-width: 140px;
+}
+.recent-entry-container {
+  position: relative; /* Ensures child absolute elements align correctly */
+}
+.dropdown-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-menu button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Add these more specific styles to Sidebar.css */
+
+/* Make sure the recent entry displays the content properly */
+/* Add this to your Sidebar.css file */
+
+/* Reset all previous styles for chat titles */
+.chat-title {
+  all: initial !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  color: white !important;
+  display: block !important;
+  margin: 10px !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 150px !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+/* Make sure the container is properly sized */
+.recent-entry-content {
+  flex: 1 !important;
+  min-width: 0 !important; /* This is critical for text-overflow to work */
+  padding-right: 10px !important;
+}
+
+/* Ensure the entire entry has proper spacing */
+.recent-entry {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 8px 12px !important;
+  margin: 4px 10px !important;
+  border-radius: 6px !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Target the icon specifically */
+.recent-entry-icon {
+  flex-shrink: 0 !important;
+  width: 18px !important;
+  height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Make sure the list is properly spaced */
+.recent-list {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 8px 0 !important;
+}
+
+/* Force visibility */
+.recent-entry-container {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}

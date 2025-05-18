@@ -1,0 +1,256 @@
+.result-container {
+    width: calc(100vw - 250px); /* Default width when sidebar is expanded */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #2A0087, #42006c);
+    color: white;
+    font-family: inherit;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: width 0.3s ease;
+  }
+  .result-container.sidebar-collapsed {
+    width: calc(100vw - 60px); /* Width when sidebar is collapsed */
+  }
+  
+  .result-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+.result-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .result-header h1 {
+    font-size: 24px;
+    margin: 0;
+    flex: 1;
+    padding-left: 10px; /* Consistent padding for alignment */
+  }
+  
+  /* Make this padding match the left padding of the header */
+  .content-display {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 20px 20px 20px;
+    white-space: pre-wrap;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-y: auto;
+    text-align: left;
+  }
+  .back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+  }
+  
+  .back-button img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+  }
+  
+  .result-header h1 {
+    font-size: 24px;
+    margin: 0;
+    flex: 1;
+    padding-left: 0;
+  }
+  .content-display {
+    /* Other properties remain the same */
+    padding: 20px; /* Keep the same padding on all sides */
+  }
+  
+  .back-to-chat-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .back-to-chat-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .result-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .content-display {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-y: auto;
+    text-align: left;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 10px;
+    margin-top: auto;
+  }
+  
+  .action-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .action-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .action-button img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 8px;
+    filter: brightness(0) invert(1);
+  }
+  
+  .action-button span {
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  /* Edit Modal Styles */
+  .edit-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .edit-modal {
+    background: linear-gradient(135deg, #3A1097, #52007c);
+    border-radius: 15px;
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .edit-modal h2 {
+    margin-top: 0;
+    color: white;
+  }
+  
+  .edit-modal p {
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .edit-modal textarea {
+    width: 100%;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    resize: vertical;
+    font-family: inherit;
+    margin-bottom: 20px;
+  }
+  
+  .edit-modal textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  
+  .cancel-button, .submit-button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .cancel-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+  
+  .cancel-button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .submit-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  
+  .submit-button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .cancel-button:disabled, .submit-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 768px) {
+    .action-buttons {
+      flex-wrap: wrap;
+    }
+    
+    .action-button {
+      flex: 1;
+      min-width: 25%;
+    }
+    
+    .edit-modal {
+      width: 95%;
+      padding: 20px;
+    }
+  }
