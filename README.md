@@ -60,3 +60,7 @@ User answers the questions to provide more context.
 AI generates content in the selected format.
 
 User can refine the output using simple editing commands.
+
+## 🚀 Live Demo
+[View the deployed application](https://voicebuddy-7c464.web.app/)
+
