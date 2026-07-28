@@ -1,8 +1,28 @@
-# Getting Started with Create React App
+# Voice Buddy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based voice assistant application powered by Firebase and Google Gemini AI.
+
+## Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+- Firebase project
+- Google Gemini API key
+
+## Environment Setup
+
+1. Clone the repository
+2. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+3. Fill in your actual API keys in the `.env` file:
+   - Get your Firebase config from [Firebase Console](https://console.firebase.google.com/)
+   - Get your Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
 
 ## Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
